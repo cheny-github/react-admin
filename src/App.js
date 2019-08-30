@@ -1,10 +1,17 @@
 import React from 'react';
 import './App.css';
-import {Button,message} from 'antd'
+import {BrowserRouter,Route,Switch} from 'react-router-dom'
+import Login from './pages/login/login';
+import Admin from './pages/admin/admin';
 // import moduleName from 'r'
 function App() {
   return (
-   <Button type="primary" onClick={()=>message.warning('hello world')} >hello</Button>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/login" component={Login} ></Route>
+        <Route path="/" component={Admin} ></Route>
+      </Switch>
+    </BrowserRouter> 
   );
 }
 
