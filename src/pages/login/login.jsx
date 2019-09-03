@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom'
 import logo from './logo.png'
 import './login.less'
 import {requestLogin} from '../../api/login';
-import userDao from '../../dao/userDao';
+import userService from '../../service/userService';
 
 
 
@@ -23,7 +23,7 @@ class Login extends Component {
                     if (+status === 0) {
                         message.success('登录成功')
                         const userInfo = result.data
-                        userDao.setUser(userInfo)
+                        userService.setUser(userInfo)
                         this.props.history.replace('/')
                     }else{
                         message.error('登录失败,'+result.msg)
@@ -49,8 +49,7 @@ class Login extends Component {
       }
     render() {
 
-
-        if (userDao.getUser()) {
+        if (userService.getUser()) {
           return  <Redirect to="/"></Redirect>
         }
 
