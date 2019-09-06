@@ -14,7 +14,7 @@ class LeftNav extends Component {
     }
     getMenuItems(menuList){
       const {pathname} = this.props.location
-      return menuList.map((item,index)=>{
+      return menuList.map((item)=>{
         if (item.children) {
           item.children.some(menuItem=>menuItem.path ===pathname) && (this.defaultOpenKey = item.path)
           return (

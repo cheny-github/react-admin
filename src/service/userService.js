@@ -7,7 +7,7 @@ export default {
     getUser(){
         return store.get('user_key')
     },
-    removeUser(){
+    logOut(){
         store.remove('user_key')
     }
 }

@@ -12,7 +12,7 @@ import './main.less'
 export default class Main extends Component {
     render() {
         return (
-            <div id="main">
+            <div id="main" style={{position:'relative'}}>
                 <Switch>
                     <Route path="/home" component={Home}></Route>
                     <Route path="/chart/bar" component={ChartBar}></Route>
