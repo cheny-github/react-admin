@@ -105,7 +105,6 @@ class User extends Component {
     }
     handleOk =()=>{
         const {flag_addUser} = this.state
-        debugger
         // 解析表单数据
         if (flag_addUser) {
             // 发送添加用户请求
@@ -259,6 +258,21 @@ class User extends Component {
                             })(<Input placeholder="请输入用户名"></Input>)
                             }
                         </Item>
+                        
+                        {
+                            flag_addUser && (
+                                <Item label="密码">
+                                {getFieldDecorator('password',{
+                                    initialValue:'',
+                                    rules:[{required:true,message:'用户密码不能为空'}]
+                                })(<Input placeholder="请输入用户密码"></Input>)
+                                }
+                                 </Item>
+                            
+                            )
+                              
+                            
+                        }
                         <Item label="手机号">
                             {getFieldDecorator('phone',{
                                 initialValue:phone  ,
@@ -272,7 +286,7 @@ class User extends Component {
                         <Item label="邮箱">
                             {getFieldDecorator('email',{
                                 initialValue:email,
-                            })(<Input placeholder="请输入密码"></Input>)
+                            })(<Input placeholder="请输入邮箱"></Input>)
                             }
                         </Item>
                         <Item label="角色">

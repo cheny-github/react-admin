@@ -79,17 +79,35 @@ export function reqUploadImg(image){
 }
 
 
-/**
- * 获取所有用户信息
- */
-export function reqUserList() {
-    return ajax.get('/manage/user/list')
-}
+
 /**
  * 获取所有角色信息
  */
 export function reqRoleList() {
     return ajax.get('/manage/role/list')
+}
+
+export function reqAddRole(roleName){
+    return ajax.post('/manage/role/add',{roleName})
+} 
+// 更新角色(给角色设置权限)
+export function reqUpdateRole(_id,menus,auth_time,auth_name) {
+    return ajax.post('/manage/role/update',{
+        _id,
+        menus,
+        auth_time,
+        auth_name
+    })
+}
+
+
+
+
+/**
+ * 获取所有用户信息
+ */
+export function reqUserList() {
+    return ajax.get('/manage/user/list')
 }
 
 /**
