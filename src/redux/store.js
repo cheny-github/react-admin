@@ -1,6 +1,6 @@
-import {createStore} from 'redux';
+import {createStore,applyMiddleware} from 'redux';
 import {calculate} from './reducer';
-
-const store = createStore(calculate)
+import thunk from 'redux-thunk';
+const store = createStore(calculate,applyMiddleware(thunk))
 
 export {store}

@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {Button, Tag, Select} from 'antd'
 import PropTypes from 'prop-types';
-import  {add,sub} from './redux/actions';
+import  {add,sub,addAsync} from './redux/actions';
 import { connect } from 'react-redux';
 class App extends React.Component {
   
@@ -10,7 +10,8 @@ class App extends React.Component {
   static propTypes={
     total:PropTypes.number.isRequired,
     add:PropTypes.func.isRequired,
-    sub:PropTypes.func.isRequired
+    sub:PropTypes.func.isRequired,
+    addAsync:PropTypes.func.isRequired
   }
 
   add=()=>{
@@ -19,6 +20,10 @@ class App extends React.Component {
 
   sub=()=>{
     this.props.sub(this.value);
+  }
+
+  addAsync=()=>{
+    this.props.addAsync(this.value)
   }
 
   render(){
@@ -42,6 +47,8 @@ class App extends React.Component {
        <Button type="primary" onClick={this.add} style={{width:200}}>加</Button>
        <br/>
        <Button type="primary" onClick={this.sub} style={{width:200}}>减</Button>
+       <br/>
+       <Button type="primary" onClick={this.addAsync} style={{width:200}}>3秒后加</Button>
       </>
     );
   }
@@ -58,7 +65,7 @@ class App extends React.Component {
  */
 const container = connect(
                           (state)=>({ total:state }),
-                          {add, sub}
+                          {add, sub,addAsync}
                         );
 const wrappedApp = container(App);
 export default wrappedApp;
