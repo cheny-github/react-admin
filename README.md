@@ -52,9 +52,50 @@ redux的工作流程图
 
 
 
-redux-react是redux针对于react框架进行的封装，简化了redux在react框架下的使用难度
+###### react-redux
+
+---
+
+react-redux是react的一个插件，简化了redux在react框架下的使用
+
+react-redux将组件分成了两类
+
+- UI组件
+
+  只负责数据展示，不带有任何业务逻辑
+
+  通过props接收数据（一般数据，函数（用于设置状态数据））
+
+  UI组件最典型的特征是没有redux相关的代码
+
+- 容器组件
+
+  负责业务逻辑，将数据通过props传给UI组件
+
+![1567936005005](assets/1567936005005.png)
 
 
+
+**核心API**
+
+`<Provider store={store}><App /></Provider>`
+
+用于提供store给所有容器组件，常包在根组件上
+
+```
+
+```
+
+
+
+`connect`
+
+用于生成容器组件
+
+```js
+const container = connect(mapStateToProps,mapDispatchToProps)
+const wrappedComponent = container(Component)
+```
 
 
 
