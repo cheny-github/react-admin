@@ -1,0 +1,47 @@
+#top{
+    position: relative;
+    h3{
+        height: 40px;
+        line-height: 40px;
+        text-align: right;
+        // margin: 0 40px;
+        span{
+            margin-left: 10px;
+            margin-right: 40px;
+        }
+        border-bottom: 1px solid green;
+    }
+    #info{
+       height: 40px;
+       line-height:40px;
+        display: flex;
+        justify-content: space-between;
+       .position{
+        font-size: 20px;
+        margin-left: 80px;
+        &::after{
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 82px;
+            border-top: 17px solid white;
+            border-bottom: 17px solid transparent;
+            border-right: 17px solid transparent;
+            border-left:  17px solid transparent;
+        }
+
+
+       }
+       .time-weather{
+        padding-right: 40px;
+        .time{
+            margin-right: 10px;
+        }
+        img{
+            width: 25px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+    }
+    }
+}

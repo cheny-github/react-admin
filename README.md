@@ -1,68 +1,138 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 知识点
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+###### 纯函数：
 
-### `npm start`
+纯函数是一个没有副作用的函数，无论在什么外部环境下，同样的输入一定可以得到同样的输出，并且函数的执行不会影响外部的环境。
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+一般纯函数要满足以下约束：
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+函数的执行不会进行I/O（磁盘，网络等）操作。
 
-### `npm test`
+函数的执行不会修改参数中引用的内容
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+###### redux
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+redux是一个用于集中管理状态数据的一个库，他不是react的插件，也可以用于vue等需要管理状态数据的框架。
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+什么时候应该使用redux:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+多个组件共享的状态数据，可以交由redux管理。
 
-## Learn More
+redux的核心概念：
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. store
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   store对象中保存了要集中管理的state，同时也提供了对状态数据进行访问的接口。
 
-### Code Splitting
+   获取状态数据：store.getState()
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+   更新状态数据：store.dispatch(action)
 
-### Analyzing the Bundle Size
+2. action
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+   是一个对象，用于指定某个行为下的新状态数据。当调用store.dispatch(action)时，action会被送到reducer，reducer根据action中的内容返回新的状态数据到store对象中。
 
-### Making a Progressive Web App
+3. reducer(state=initValue,action)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+   是一个纯函数，根据收到的action给store返回相应的state。
 
-### Advanced Configuration
+   第一个参数拿到的是旧的状态。
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+redux的工作流程图
 
-### Deployment
+![1567927826943](assets/1567927826943.png)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+redux-react是redux针对于react框架进行的封装，简化了redux在react框架下的使用难度
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 项目经验
+
+在使用Menu/Tree等与树结构相关的组件时，在需要根据权限来显示菜单项的情况下，常常需要这么一个操作：“子元素的存在会激活父元素”。
+
+套路如下
+
+1.将父元素的引用保存到子元素中
+
+![1567915278001](assets/1567915278001.png)
+
+当访问某个元素的时候查看该元素是否有父元素，有的话连同父元素一起展示
+
+![1567915413002](assets/1567915413002.png)
+
+
+
+
+
+---
+
+父组件给子组件传递了新的props时，想`通过this拿到最新的props`只能在render以及之后执行的生命周期钩子中。
+
+可以在componentWillReceiveProps，shouldComponentUpdate中通过参数拿到最新的props
+
+> 千万不要在willUpdate中通过this拿props，这里只能拿到旧的props
+
+生命周期中update阶段的执行顺序如下：
+
+![1567916735059](assets/1567916735059.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 出现的bug以及解决。
+
+![1567763373750](assets/1567763373750.png)
+
+经验：要在render中渲染的数据最好都从对象中解构出来使用，而不是通过对象的引用去获取数据。
+
+
+
+
+
+使用axios上传FormData的时候直接传FormData对象就行了，不要再包一层对象。
+
+![1567770694278](assets/1567770694278.png)
+
+
+
+传入undefined给new Date() 会得到一个Invilid Date对象。
+
+
+
