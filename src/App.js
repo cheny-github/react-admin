@@ -1,27 +1,29 @@
 import React from 'react';
 import './App.css';
-import {Button,message, Tag, Select} from 'antd'
+import {Button, Tag, Select} from 'antd'
 import PropTypes from 'prop-types';
-import * as action from './redux/actions';
-// import moduleName from 'r'
+import  {add,sub} from './redux/actions';
+import { connect } from 'react-redux';
 class App extends React.Component {
   
 
   static propTypes={
-    store:PropTypes.object.isRequired
+    total:PropTypes.number.isRequired,
+    add:PropTypes.func.isRequired,
+    sub:PropTypes.func.isRequired
   }
 
   add=()=>{
-    this.props.store.dispatch(action.add(this.value))
+    this.props.add(this.value);
   }
 
   sub=()=>{
-    this.props.store.dispatch(action.sub(this.value))
+    this.props.sub(this.value);
   }
 
   render(){
-    const store =this.props.store;
-    const total = store.getState()
+    const total = this.props.total;
+
     return (
       <>
         <Tag color="magenta">{total}</Tag>
@@ -46,4 +48,17 @@ class App extends React.Component {
 
 }
 
-export default App;
+
+/**
+ * mapStateToProps
+ * (state)=>({propName:xxx})
+ * mapDispatchToProps
+ * (dispatch)=>({propName:(data)=>{dispatch(action(data)}})
+ * 或者对象语法糖{action1,action2}
+ */
+const container = connect(
+                          (state)=>({ total:state }),
+                          {add, sub}
+                        );
+const wrappedApp = container(App);
+export default wrappedApp;
