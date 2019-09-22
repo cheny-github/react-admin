@@ -97,11 +97,56 @@ const wrappedComponent = container(Component)
 
 
 
+**异步anction**
+
+---
+
+引入redux-thunk
+
+```js
+yarn add redux-thunk
+
+import {createStore,applyMeddileWare} from 'redux';
+import {composeWithDevTools} from 'redux-devtools-extension'
+import thunk from 'redux-thunk'
+export default createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
+```
+
+编写异步action:
+
+```js
+export const add = number =>dispatch=>{setTiemOut(dispatch(action))}
+```
+
+ **redux-devtools-extension**
+
+chrome的redux插件依赖于该 扩展
 
 
 
+**合并多个reducer**
+
+---
 
 
+
+```js
+import {combineReducers} from 'redux';
+
+const initHeadTitle ='首页';
+// reducer的名称可以看做是读取state信息时的命名空间
+function headTitle(state=initHeadTitle,action) {
+    switch (action.type) {
+        case  SET_HEAD_TITLE:
+            return action.data
+        default:
+            return state
+    }
+}
+export default combineReducers({headTitle});
+```
+
+合并以后，各 reducer的名称可以看做是读取state信息时的命名空间，取的时候应该使用state.xxx来拿到xxx的state信息.
 
 
 

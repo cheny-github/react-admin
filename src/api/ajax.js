@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs';
 import {message} from 'antd';
-export const ajax_sendImg =axios.create()
+ const ajax_sendImg =axios.create()
 
 axios.interceptors.request.use(config=>{
     const {data} = config
@@ -25,3 +25,4 @@ ajax_sendImg.interceptors.response.use(response=>{
 
 
 export default axios
+export {ajax_sendImg}

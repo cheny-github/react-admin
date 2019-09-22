@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import {Link,withRouter} from 'react-router-dom'
 import { Menu, Icon } from 'antd';
+import {connect} from 'react-redux';
 
 import './left-nav.less'
 import menuList, { menusConfig } from '../../config/menu.config'
 import userService from '../../service/userService';
-
+import {setHeadTitle} from '../../redux/actions'
 
 const { SubMenu } = Menu;
 
@@ -63,7 +64,7 @@ class LeftNav extends Component {
           if (flag_ShouldRender) {
             return( 
               <Menu.Item key={item.path}>
-                <Link to={item.path}>
+                <Link to={item.path} onClick={()=>{this.props.setHeadTitle(item.title)}}>
                   <Icon type={item.icon}></Icon>
                   {item.title}
                 </Link>
@@ -99,4 +100,6 @@ class LeftNav extends Component {
 }
 
 
-export default withRouter(LeftNav)
+export default withRouter(
+  connect(()=>({}),
+  {setHeadTitle})(LeftNav))

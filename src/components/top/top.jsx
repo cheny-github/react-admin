@@ -7,6 +7,8 @@ import {reqWeather} from '../../api/weather'
 import menuList from '../../config/menu.config';
 import LinkButton from '../../components/link-button/link-button';
 import { message ,Modal} from 'antd';
+import {connect} from 'react-redux';
+// import PropTypes from 'prop-types'
 const {confirm} =Modal
 class Top extends Component {
     state = {
@@ -14,19 +16,19 @@ class Top extends Component {
         weather:'',
         dayPictureUrl:'',
     }
-     showLogOutConfirm= ()=> {
-        confirm({
-          title: '退出',
-          content: '你要退出吗？',
-          onOk:()=> {
-           this.logOut()
-          },
-          onCancel:() =>{
+    showLogOutConfirm= ()=> {
+    confirm({
+        title: '退出',
+        content: '你要退出吗？',
+        onOk:()=> {
+        this.logOut()
+        },
+        onCancel:() =>{
 
-          },
-        });
-      }
-      
+        },
+    });
+    }
+    
     componentWillMount(){
         this.getPageTitle(menuList)
         this.userName = userService.getUser().username
@@ -58,7 +60,7 @@ class Top extends Component {
             if (item.children) {
                 this.getPageTitle(item.children)
             }else{
-                if (item.path ===pathname) {
+                if (pathname.startsWith(item.path)) {
                     this.pageTitle=item.title
                 }
             }
@@ -73,8 +75,8 @@ class Top extends Component {
         }, 200);
     }
     render() {
-        const {time,weather,dayPictureUrl}=this.state
-        const {pageTitle} =this
+        const {time,weather,dayPictureUrl}=this.state;
+        const {headTitle:pageTitle} =this.props;
         return (
             <div id="top" style={{height:'80px'}}>
                     <h3>欢迎,{this.userName}
@@ -96,4 +98,7 @@ class Top extends Component {
 }
 
 
-export default withRouter(Top)
+export default withRouter(connect(
+    ({headTitle})=>({headTitle}),
+    {}
+)(Top))
